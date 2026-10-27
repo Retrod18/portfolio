@@ -1,0 +1,6 @@
+# local dev / editor
+.claude/
+.vscode/
+.DS_Store
+Thumbs.db
+desktop.ini

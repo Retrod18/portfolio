@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dhruv Sharma · AI/ML Engineer</title>
+  <meta name="description" content="Dhruv Sharma is an AI/ML Engineer in Delhi building RAG pipelines, autonomous AI agents and production LLM systems with Python, LangChain, MCP and FastAPI.">
+  <meta name="theme-color" content="#06070b">
+  <meta property="og:title" content="Dhruv Sharma · AI/ML Engineer">
+  <meta property="og:description" content="Generative AI, LLM & RAG systems, AI agents.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%239b8cff'/%3E%3Cstop offset='1' stop-color='%235ef0c8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpolygon points='32,4 58,19 58,45 32,60 6,45 6,19' fill='url(%23g)'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <!-- boot sequence -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader-inner">
+      <p class="mono loader-line"><span class="dim">$</span> loading latent space<span id="loader-dots"></span></p>
+      <div class="loader-bar"><span id="loader-fill"></span></div>
+      <p class="mono loader-meta"><span id="loader-pct">0</span>% · 1,800 vectors · dim 3</p>
+    </div>
+  </div>
+
+  <!-- ambient layers -->
+  <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+  <canvas id="gl" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  <canvas id="trail" aria-hidden="true"></canvas>
+  <div class="cursor-ring" aria-hidden="true"><span class="cursor-label mono"></span></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+
+  <header class="nav glass" id="nav">
+    <a href="#hero" class="brand" data-cursor="home" aria-label="Back to top">
+      <svg viewBox="0 0 64 64" width="22" height="22" aria-hidden="true"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9b8cff"/><stop offset="1" stop-color="#5ef0c8"/></linearGradient></defs><polygon points="32,4 58,19 58,45 32,60 6,45 6,19" fill="none" stroke="url(#bg)" stroke-width="5"/></svg>
+      <span>dhruv<span class="dim">.ai</span></span>
+    </a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#about" data-scramble>about</a>
+      <a href="#experience" data-scramble>trace</a>
+      <a href="#projects" data-scramble>work</a>
+      <a href="#skills" data-scramble>skills</a>
+      <a href="#ask" data-scramble>ask</a>
+      <a href="#contact" data-scramble>contact</a>
+    </nav>
+    <button class="kbd-btn" id="open-palette" data-cursor="search" aria-label="Open command palette">
+      <span class="mono"><kbd id="kbd-mod">Ctrl</kbd><kbd>K</kbd></span>
+    </button>
+  </header>
+
+  <aside class="rail" aria-hidden="true" id="rail"></aside>
+
+  <main id="main">
+    <!-- 00 HERO -->
+    <section id="hero" class="hero" data-section="sphere">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow mono" data-reveal><span class="pulse-dot"></span><span id="status-text">Open to AI/ML roles</span> · Delhi, IN</p>
+          <h1 class="hero-title" data-reveal>
+            <span class="line">Dhruv</span>
+            <span class="line">Sharma<em>.</em></span>
+          </h1>
+          <p class="hero-role mono" data-reveal>AI/ML Engineer — <span>Generative AI</span> / <span>LLM &amp; RAG Systems</span> / <span>AI Agents</span></p>
+          <p class="hero-stream" data-reveal aria-live="polite"><span class="mono prompt">&gt;</span> <span id="stream"></span><span class="caret"></span></p>
+          <div class="hero-cta" data-reveal>
+            <a class="btn primary magnetic" href="#ask" data-cursor="query"><span>Ask my resume</span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <a class="btn ghost magnetic" href="#projects" data-cursor="view"><span>View work</span></a>
+            <a class="btn ghost magnetic icon-only" href="assets/Dhruv_Sharma_Resume.pdf" download data-cursor="pdf" aria-label="Download resume PDF"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </div>
+
+        <!-- widget: live controls for the 3D scene -->
+        <div class="params glass" id="params" data-reveal>
+          <div class="widget-head">
+            <span class="mono">inference.config</span>
+            <span class="mono dim" id="fps">— fps</span>
+          </div>
+          <label class="param">
+            <span class="param-top"><span class="mono">temperature</span><output class="mono" id="temp-out">0.70</output></span>
+            <input type="range" id="temp" min="0" max="1.5" step="0.01" value="0.7" data-cursor="slide">
+          </label>
+          <label class="param">
+            <span class="param-top"><span class="mono">top_k edges</span><output class="mono" id="topk-out">3</output></span>
+            <input type="range" id="topk" min="0" max="6" step="1" value="3" data-cursor="slide">
+          </label>
+          <div class="param">
+            <span class="param-top"><span class="mono">manifold</span><span class="mono dim">scroll morphs it</span></span>
+            <div class="chips" id="shape-chips" role="group" aria-label="Particle shape">
+              <button data-shape="sphere" class="on">sphere</button>
+              <button data-shape="cluster">cluster</button>
+              <button data-shape="helix">helix</button>
+              <button data-shape="knot">knot</button>
+              <button data-shape="wave">wave</button>
+            </div>
+          </div>
+          <p class="widget-foot mono dim"><span id="edge-count">0</span> edges · drag your cursor through the cloud</p>
+        </div>
+      </div>
+      <a href="#about" class="scroll-hint mono" data-cursor="scroll">traverse latent space <span>↓</span></a>
+    </section>
+
+    <!-- 01 ABOUT -->
+    <section id="about" class="section" data-section="cluster">
+      <div class="wrap">
+        <header class="sec-head" data-reveal>
+          <p class="mono sec-idx">01 / about</p>
+          <h2>Retrieval, reasoning, <em>reliability</em>.</h2>
+        </header>
+        <div class="bento">
+          <article class="glass tile tile-summary tilt" data-reveal>
+            <p class="mono tile-label">system_prompt</p>
+            <p class="summary" id="summary"></p>
+          </article>
+          <article class="glass tile tile-clock tilt" data-reveal>
+            <p class="mono tile-label">local time · Delhi</p>
+            <p class="clock" id="clock">--:--</p>
+            <p class="mono dim" id="clock-meta">IST · UTC+5:30</p>
+          </article>
+          <article class="glass tile tile-now tilt" data-reveal>
+            <p class="mono tile-label">currently</p>
+            <p class="now-title">Master of Operational Research</p>
+            <p class="dim">University of Delhi · 2026 — 2028</p>
+          </article>
+          <div class="tile-metrics" id="metrics"></div>
+          <article class="glass tile tile-marquee" data-reveal>
+            <div class="marquee" id="marquee"></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 EXPERIENCE -->
+    <section id="experience" class="section" data-section="helix">
+      <div class="wrap">
+        <header class="sec-head" data-reveal>
+          <p class="mono sec-idx">02 / agent trace</p>
+          <h2>Experience, logged <em>step by step</em>.</h2>
+          <p class="sec-note">Each role, read as an agent run: what the problem was, what I did, and what came out.</p>
+        </header>
+        <div class="trace-list" id="exp-list"></div>
+      </div>
+    </section>
+
+    <!-- 03 PROJECTS -->
+    <section id="projects" class="section" data-section="knot">
+      <div class="wrap">
+        <header class="sec-head" data-reveal>
+          <p class="mono sec-idx">03 / selected work</p>
+          <h2>Systems that <em>retrieve</em> and respond.</h2>
+        </header>
+        <div class="projects" id="proj-list"></div>
+      </div>
+    </section>
+
+    <!-- 04 SKILLS -->
+    <section id="skills" class="section" data-section="cluster">
+      <div class="wrap">
+        <header class="sec-head" data-reveal>
+          <p class="mono sec-idx">04 / embedding space</p>
+          <h2>My stack as <em>vectors</em>.</h2>
+          <p class="sec-note">Drag to rotate. Hover a skill to see its nearest neighbours, click it to filter the whole site.</p>
+        </header>
+        <div class="skills-grid">
+          <div class="glass space-wrap" data-reveal>
+            <canvas id="skills-canvas" data-cursor="drag" aria-label="Interactive 3D map of skills"></canvas>
+            <div class="space-tip mono" id="space-tip"></div>
+            <p class="space-hud mono dim"><span id="space-rot">θ 0°</span> · 34 vectors · 6 clusters</p>
+          </div>
+          <div class="skills-side">
+            <div class="glass side-card" data-reveal>
+              <label class="search">
+                <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                <input id="skill-search" type="text" placeholder="nearest skill to…" autocomplete="off" spellcheck="false">
+              </label>
+              <div class="legend" id="legend"></div>
+            </div>
+            <div class="glass side-card" id="skill-detail" data-reveal>
+              <p class="mono tile-label">query vector</p>
+              <p class="detail-empty dim">Select a skill to see where I've used it.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 RAG -->
+    <section id="ask" class="section" data-section="wave">
+      <div class="wrap">
+        <header class="sec-head" data-reveal>
+          <p class="mono sec-idx">05 / retrieval-augmented</p>
+          <h2>Ask my resume <em>anything</em>.</h2>
+          <p class="sec-note">A small RAG pipeline that runs entirely in your browser: TF-IDF embeddings and cosine similarity over 18 chunks of my resume. It's the same retrieval idea behind Bookwise ML.</p>
+        </header>
+        <div class="glass rag" data-reveal>
+          <form class="rag-input" id="rag-form" autocomplete="off">
+            <span class="mono prompt">&gt;</span>
+            <input id="rag-q" type="text" placeholder="What did Dhruv build at DRDO?" aria-label="Ask a question about Dhruv" spellcheck="false">
+            <button class="btn primary sm magnetic" type="submit" data-cursor="run"><span>Run</span><kbd class="mono">↵</kbd></button>
+          </form>
+          <div class="chips suggest" id="rag-suggest">
+            <button type="button">What is DocuSense AI?</button>
+            <button type="button">Experience with AI agents?</button>
+            <button type="button">Which vector databases?</button>
+            <button type="button">Where is he studying?</button>
+            <button type="button">How do I contact him?</button>
+          </div>
+          <ol class="stages" id="rag-stages">
+            <li data-stage="embed"><span class="mono">01</span> embed</li>
+            <li data-stage="retrieve"><span class="mono">02</span> retrieve</li>
+            <li data-stage="rerank"><span class="mono">03</span> re-rank</li>
+            <li data-stage="generate"><span class="mono">04</span> generate</li>
+          </ol>
+          <div class="rag-body">
+            <div class="rag-col">
+              <p class="mono tile-label">query embedding</p>
+              <div class="qvec" id="rag-qvec"><p class="dim">Waiting for a query…</p></div>
+              <p class="mono tile-label">retrieved context · top 3</p>
+              <div class="ctx" id="rag-ctx"></div>
+            </div>
+            <div class="rag-col">
+              <p class="mono tile-label">generation</p>
+              <div class="answer" id="rag-answer"><p class="dim">The answer streams here, grounded in the retrieved chunks.</p></div>
+              <div class="sources" id="rag-sources"></div>
+              <p class="mono dim rag-meta" id="rag-meta"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 EDUCATION -->
+    <section id="education" class="section" data-section="helix">
+      <div class="wrap">
+        <header class="sec-head" data-reveal>
+          <p class="mono sec-idx">06 / training data</p>
+          <h2>Education &amp; <em>certifications</em>.</h2>
+        </header>
+        <div class="edu-grid">
+          <div class="glass edu-card" data-reveal><ol class="edu" id="edu-list"></ol></div>
+          <div class="glass edu-card" data-reveal>
+            <p class="mono tile-label">certifications</p>
+            <ul class="certs" id="cert-list"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 CONTACT -->
+    <section id="contact" class="section contact" data-section="sphere">
+      <div class="wrap">
+        <header class="sec-head center" data-reveal>
+          <p class="mono sec-idx">07 / output</p>
+          <h2 class="contact-title">Let's build something <em>intelligent</em>.</h2>
+        </header>
+        <div class="contact-grid">
+          <button class="glass email-pill magnetic" id="copy-email" data-cursor="copy" data-reveal>
+            <span class="mono tile-label">email · click to copy</span>
+            <span class="email" id="email-text"></span>
+          </button>
+          <div class="socials" data-reveal>
+            <a class="glass social magnetic" id="lnk-linkedin" target="_blank" rel="noopener" data-cursor="open">
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.84-2.05 3.8-2.05 4.05 0 4.8 2.67 4.8 6.14V21h-4v-5.5c0-1.3-.02-3-1.83-3-1.84 0-2.12 1.43-2.12 2.9V21H9z"/></svg>
+              <span>LinkedIn</span>
+            </a>
+            <a class="glass social magnetic" id="lnk-github" target="_blank" rel="noopener" data-cursor="open">
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>
+              <span>GitHub</span>
+            </a>
+            <a class="glass social magnetic" href="assets/Dhruv_Sharma_Resume.pdf" download data-cursor="pdf">
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Resume</span>
+            </a>
+          </div>
+          <form class="glass compose" id="compose" data-reveal>
+            <p class="mono tile-label">compose · opens in your mail app</p>
+            <input name="name" type="text" placeholder="Your name" required>
+            <textarea name="msg" rows="3" placeholder="What are we building?" required></textarea>
+            <button class="btn primary magnetic" type="submit" data-cursor="send"><span>Draft email</span></button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer wrap">
+    <p class="mono dim">© <span id="year"></span> Dhruv Sharma · built with Three.js &amp; vanilla JS</p>
+    <p class="mono dim">press <kbd>/</kbd> or <kbd>Ctrl</kbd><kbd>K</kbd> to navigate</p>
+  </footer>
+
+  <!-- skill filter pill -->
+  <div class="filter-pill glass" id="filter-pill" role="status">
+    <span class="mono dim">filter</span><strong id="filter-name"></strong>
+    <button id="filter-clear" aria-label="Clear skill filter" data-cursor="clear">✕</button>
+  </div>
+
+  <!-- command palette -->
+  <div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="Command palette" hidden>
+    <div class="palette-box glass">
+      <label class="palette-input">
+        <span class="mono prompt">&gt;</span>
+        <input id="palette-q" type="text" placeholder="Jump to a section, filter by skill, or ask a question…" autocomplete="off" spellcheck="false">
+        <kbd class="mono">esc</kbd>
+      </label>
+      <ul class="palette-list" id="palette-list" role="listbox"></ul>
+    </div>
+  </div>
+
+  <div class="toast glass mono" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/data.js" defer></script>
+  <script src="js/core.js" defer></script>
+  <script src="js/cursor.js" defer></script>
+  <script src="js/scene.js" defer></script>
+  <script src="js/skills.js" defer></script>
+  <script src="js/rag.js" defer></script>
+  <script src="js/palette.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>
